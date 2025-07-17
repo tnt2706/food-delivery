@@ -1,0 +1,161 @@
+/* Toàn bộ form sẽ được căn giữa màn hình */
+.reservation-container {
+  min-height: 80vh;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Form chính */
+.reservation-form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: sans-serif;
+}
+
+.title {
+  font-size: 24px;
+  font-weight:400;
+  color: #ff5722;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.reservation-form label {
+  display: block;
+  margin: 1rem 0 0.25rem;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.reservation-form input,
+.reservation-form select,
+.reservation-form textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  
+  box-sizing: border-box;
+}
+
+.reservation-form .row {
+  display: flex;
+  gap: 1rem;
+}
+
+.reservation-form .column {
+  flex: 1;
+}
+
+.reservation-form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #ff5722;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.reservation-form button:hover {
+  background-color: #e64a19;
+}
+
+.reservation-form .required {
+  color: red;
+}
+
+.reservation-form .input-error {
+  border-color: #d32f2f !important;
+  background-color: #fff3f3;
+}
+
+.reservation-form .error {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+.reservation-form .description {
+  font-size: 13px;
+  color: #666;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+
+.success-message {
+  background: #f7f7f7;
+  padding: 2rem;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.success-message h2 {
+  color: #4caf50;
+  font-size: 22px;
+  margin-bottom: 1rem;
+}
+
+.success-message p {
+  color: #444;
+  font-size: 14px;
+  margin: 0.5rem 0;
+}
+
+.error-msg {
+  color: #be2d2d;
+  font-size: 15px;
+  margin: 1rem 0;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+@media (max-width:750px) { 
+  .reservation-container {
+    min-height: 80vh;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0rem !important;
+  }
+  .reservation-form{
+    width: 100%;
+  }
+}

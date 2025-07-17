@@ -9,9 +9,12 @@ const Footer = () => {
         <div className="footer-content-left">
           <img className="footer-logo" src={assets.logo} alt="" />
           <div className="footer-social-icons">
-            <img src={assets.facebook_icon} alt="https://facebook.com" />
-            <img src={assets.twitter_icon} alt="https://twitter.com" />
-            <img src={assets.linkedin_icon} alt="https://linkedin.com" />
+            <a href="https://www.facebook.com/kokoria.sg?rdid=yiouvRWH7Ek92hJb&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Jkup6MAFB%2F#" target="_blank" rel="noopener noreferrer">
+              <img src={assets.facebook_icon} alt="Facebook" />
+            </a>
+            <a href="https://www.instagram.com/kokoria.sg/?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D" target="_blank" rel="noopener noreferrer">
+              <img src={assets.linkedin_icon} alt="LinkedIn" />
+            </a>
           </div>
         </div>
         <div className="footer-content-center">
@@ -26,7 +29,7 @@ const Footer = () => {
         <div className="footer-content-right">
           <h2>Get in touch</h2>
           <ul>
-            <li>+84-308-4900522</li>
+            <li>(+84) 070.879.6719</li>
             <li>contact@kokoria.com</li>
           </ul>
         </div>
