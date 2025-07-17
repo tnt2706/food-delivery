@@ -189,9 +189,12 @@ const Reservation = () => {
           className={errors.branch ? "input-error" : ""}
         >
           <option value="">Select a location</option>
-          <option>Downtown</option>
-          <option>City Mall</option>
-          <option>Riverside</option>
+          <option>🏡 207/33 3/2 St, D10</option>
+          <option>🏡 573/2 Su Van Hanh St, D10</option>
+          <option>🏡 106 Le Van Duyet St, BT Dist</option>
+          <option>🏡 01S04 S203, Rainbow VGP, D9</option>
+          <option>🏡 228A Tran Hung Dao St, Can Tho</option>
+
         </select>
         {errors.branch && <div className="error">{errors.branch}</div>}
 

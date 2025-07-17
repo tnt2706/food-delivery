@@ -1,0 +1,216 @@
+[
+  {
+    "type": "menu",
+    "keywords": [
+      "menu",
+      "food",
+      "dish",
+      "order",
+      "see menu",
+      "what's available"
+    ],
+    "response": "Here's our menu: https://kokoria.vercel.app"
+  },
+  {
+    "type": "popular_dish",
+    "keywords": [
+      "popular",
+      "best",
+      "recommend",
+      "top dish"
+    ],
+    "response": "Our popular dishes include Tteokbokki \ud83c\udf36\ufe0f, Fried Chicken \ud83c\udf57 and Bibimbap \ud83e\udd63!"
+  },
+  {
+    "type": "dessert",
+    "keywords": [
+      "dessert",
+      "sweet",
+      "cake",
+      "ice cream"
+    ],
+    "response": "Yes, we have desserts like Ice Cream, Hotteok and more! \ud83c\udf70"
+  },
+  {
+    "type": "reservation",
+    "keywords": [
+      "reservation",
+      "book a table",
+      "table",
+      "seat"
+    ],
+    "response": "You can reserve a table here: https://kokoria.vercel.app/reservation"
+  },
+  {
+    "type": "open_time",
+    "keywords": [
+      "open",
+      "hours",
+      "time",
+      "when",
+      "opening"
+    ],
+    "response": "We are open from 10:00 AM to 10:00 PM every day!"
+  },
+  {
+    "type": "delivery",
+    "keywords": [
+      "delivery",
+      "takeaway",
+      "take out",
+      "order to go",
+      "ship"
+    ],
+    "response": "Yes! We offer delivery and takeaway via GrabFood or ShopeeFood \ud83d\ude9a"
+  },
+  {
+    "type": "payment",
+    "keywords": [
+      "payment",
+      "card",
+      "cash",
+      "wallet",
+      "momo",
+      "zalo",
+      "visa"
+    ],
+    "response": "We accept cash, cards, and e-wallets like Momo & ZaloPay \ud83d\udcb3"
+  },
+  {
+    "type": "voucher",
+    "keywords": [
+      "voucher",
+      "discount",
+      "promo",
+      "promotion",
+      "deal",
+      "offer"
+    ],
+    "response": "Check our current promotions here: https://kokoria.vercel.app/promotions"
+  },
+  {
+    "type": "branch",
+    "keywords": [
+      "location",
+      "branch",
+      "where",
+      "address",
+      "place"
+    ],
+    "response": "We have branches in District 10, Binh Thanh and District 9. View them here: https://kokoria.vercel.app/branches"
+  },
+  {
+    "type": "vegan",
+    "keywords": [
+      "vegan",
+      "vegetarian",
+      "plant-based",
+      "meatless",
+      "no meat"
+    ],
+    "response": "Yes! We offer vegan and vegetarian dishes \ud83e\udd57"
+  },
+  {
+    "type": "spicy_level",
+    "keywords": [
+      "spicy",
+      "level",
+      "chili",
+      "hot"
+    ],
+    "response": "Our spicy dishes range from level 1 to 7 \ud83c\udf36\ufe0f. You can choose your level!"
+  },
+  {
+    "type": "birthday",
+    "keywords": [
+      "birthday",
+      "celebrate",
+      "bday",
+      "gift"
+    ],
+    "response": "Yes! Show your ID on your birthday to get special offers \ud83c\udf89"
+  },
+  {
+    "type": "cancel_reservation",
+    "keywords": [
+      "cancel",
+      "change reservation",
+      "reschedule"
+    ],
+    "response": "To cancel or reschedule your reservation, please call our hotline \ud83d\udcde"
+  },
+  {
+    "type": "error_booking",
+    "keywords": [
+      "error",
+      "issue",
+      "not working",
+      "can't book",
+      "problem"
+    ],
+    "response": "Sorry for the issue! Please try again or contact our support."
+  },
+  {
+    "type": "staff_feedback",
+    "keywords": [
+      "staff",
+      "feedback",
+      "complain",
+      "service"
+    ],
+    "response": "We appreciate your feedback! Feel free to share your thoughts \ud83c\udf1f"
+  },
+  {
+    "type": "contact",
+    "keywords": [
+      "contact",
+      "phone",
+      "hotline",
+      "support"
+    ],
+    "response": "You can contact us at 0909-xxx-xxx or via Facebook Messenger."
+  },
+  {
+    "type": "location_parking",
+    "keywords": [
+      "parking",
+      "park",
+      "vehicle",
+      "car"
+    ],
+    "response": "Yes, we have free parking available in front of the restaurant \ud83d\ude97"
+  },
+  {
+    "type": "dietary",
+    "keywords": [
+      "allergy",
+      "gluten",
+      "no onion",
+      "no garlic",
+      "restriction"
+    ],
+    "response": "Please inform our staff about your dietary restrictions. We'll try to accommodate!"
+  },
+  {
+    "type": "job",
+    "keywords": [
+      "job",
+      "apply",
+      "hiring",
+      "career",
+      "join team"
+    ],
+    "response": "We're always hiring passionate people! Send your CV to hr@kokoria.com"
+  },
+  {
+    "type": "greeting",
+    "keywords": [
+      "hi",
+      "hello",
+      "hey",
+      "good morning",
+      "good evening"
+    ],
+    "response": "Hi there! How can I help you today? \ud83d\ude0a"
+  }
+]

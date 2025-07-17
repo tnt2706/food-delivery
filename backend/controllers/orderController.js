@@ -56,7 +56,7 @@ const placeOrder = async (req, res) => {
       orderId: newOrder._id,
       items: req.body.items,
       amount: req.body.amount,
-      address: req.body.address,  
+      address: req.body.address,
     })
   } catch (error) {
     console.log(error);

@@ -116,6 +116,19 @@ const sendReservationEmail = async (email, templateKey, ...args) => {
   }
 };
 
+const getTodayStart = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today;
+};
+
+const getTomorrowStart = () => {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+  return tomorrow;
+};
+
 // Controllers
 const addReservation = async (req, res) => {
   try {
@@ -166,30 +179,63 @@ const addReservation = async (req, res) => {
 
 const listReservations = async (req, res) => {
   try {
-    const { userId } = req.body;
+    const { 
+      dateFilter = 'future', // 'all', 'today', 'future', 'past'
+      startDate,
+      endDate 
+    } = req.query;
 
+   const { userId } = req.body;
+    const filter = {};
+  
     if (!await isAdmin(userId)) {
-      return res.json({ 
-        success: false, 
-        message: 'Bạn không có quyền truy cập chức năng này' 
-      });
+      filter["userId"] = userId;
+    }
+    
+    const today = getTodayStart();
+    
+    switch (dateFilter) {
+      case 'today':
+        filter["date"] = {
+          $gte: today,
+          $lt: getTomorrowStart()
+        };
+        break;
+      case 'future':
+        filter["date"] = { $gte: today };
+        break;
+      case 'past':
+        filter["date"] = { $lt: today };
+        break;
+      case 'range':
+        if (startDate && endDate) {
+          filter["date"] = {
+            $gte: new Date(startDate),
+            $lte: new Date(endDate)
+          };
+        }
+        break;
+      case 'all':
+      default:
+        break;
     }
 
     const reservations = await reservationModel
-      .find({})
-      .populate('processedBy', 'email name')
-      .sort({ createdAt: -1 });
-
-    res.json({ 
-      success: true, 
+      .find(filter)
+      .sort({ date: 1 });
+    
+    res.json({
+      isSuccess: true,
       data: reservations,
-      total: reservations.length
+      total: reservations.length,
+      filter: dateFilter
     });
-
+    
   } catch (error) {
     handleError(res, error, 'Không thể lấy danh sách đặt bàn');
   }
 };
+
 
 const updateReservation = async (req, res) => {
   try {

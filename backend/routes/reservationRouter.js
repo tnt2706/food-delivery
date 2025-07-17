@@ -5,7 +5,7 @@ import { addReservation,listReservations,updateReservation  } from "../controlle
 const reservationRouter = express.Router();
 
 reservationRouter.post("/add",authMiddleware, addReservation);
-reservationRouter.post("/status",authMiddleware, listReservations);
-reservationRouter.get("/list",authMiddleware, updateReservation);
+reservationRouter.post("/status",authMiddleware, updateReservation);
+reservationRouter.get("/list",authMiddleware, listReservations);
 
 export default reservationRouter;

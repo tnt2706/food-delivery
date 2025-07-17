@@ -22,6 +22,8 @@ const PlaceOrder = () => {
     phone: "",
   });
 
+  const [submitStatus, setSubmitStatus] = useState("");
+
   const onChangeHandler = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -46,10 +48,13 @@ const PlaceOrder = () => {
     
     let response= await axios.post(url+"/api/order/place",orderData,{headers:{token}});
     if(response.data.success){
-      const {session_url}=response.data;
-      window.location.replace(session_url);
+      setSubmitStatus("success");
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
     }else{
       toast.error("Errors!")
+      setSubmitStatus("error");
     }
   };
 
@@ -63,6 +68,18 @@ const PlaceOrder = () => {
       navigate("/cart")
     }
   },[token])
+
+  if (submitStatus === "success") {
+   return (
+    <div className="success-screen">
+      <h2>🎉 Order Successful!</h2>
+      <p>Thank you for your purchase.</p>
+      <p>We’ll redirect you to the homepage in a moment...</p>
+    </div>
+  );
+
+  }
+
   return (
     <form className="place-order" onSubmit={placeOrder}>
       <div className="place-order-left">
@@ -94,7 +111,7 @@ const PlaceOrder = () => {
           placeholder="Email Address"
         />
         <input
-          required
+          // required
           name="street"
           value={data.street}
           onChange={onChangeHandler}
@@ -103,7 +120,7 @@ const PlaceOrder = () => {
         />
         <div className="multi-fields">
           <input
-            required
+            // required
             name="city"
             value={data.city}
             onChange={onChangeHandler}
@@ -111,7 +128,7 @@ const PlaceOrder = () => {
             placeholder="City"
           />
           <input
-            required
+            // required
             name="state"
             value={data.state}
             onChange={onChangeHandler}
@@ -121,7 +138,7 @@ const PlaceOrder = () => {
         </div>
         <div className="multi-fields">
           <input
-            required
+            // required
             name="zipcode"
             value={data.zipcode}
             onChange={onChangeHandler}
@@ -129,7 +146,7 @@ const PlaceOrder = () => {
             placeholder="Zip Code"
           />
           <input
-            required
+            // required
             name="country"
             value={data.country}
             onChange={onChangeHandler}
@@ -138,7 +155,7 @@ const PlaceOrder = () => {
           />
         </div>
         <input
-          required
+          // required
           name="phone"
           value={data.phone}
           onChange={onChangeHandler}

@@ -10,13 +10,18 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
-import Reservation  from "./components/Reservation/Reservation";  
+import Reservation from "./components/Reservation/Reservation";
+import ChatWidget from "./components/Chat/ChatWidget";
+import "./components/Chat/FloatingChatButton.css"; // đảm bảo tồn tại
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+
   return (
     <>
-      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : <></>}
+      {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
+
       <div className="app">
         <ToastContainer />
         <Navbar setShowLogin={setShowLogin} />
@@ -28,7 +33,14 @@ const App = () => {
           <Route path="/myorders" element={<MyOrders />} />
           <Route path="/reservation" element={<Reservation />} />
         </Routes>
+
+        <div className="floating-chat-button" onClick={() => setChatOpen(!chatOpen)}>
+          💬
+        </div>
+
+        {chatOpen && <ChatWidget />}
       </div>
+
       <Footer />
     </>
   );
