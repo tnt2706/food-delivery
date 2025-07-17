@@ -7,10 +7,8 @@ const Header = () => {
       <div className="header-contents">
         <h2>Order your favourite food here</h2>
         <p>
-          Choose from a diverse menu featuring a detectable array of dishes
-          crafted with the finest ingredients and culinary expertise. Our
-          mission is to satisfy your cravings and elevate your dining
-          experience, one delicious meal at a time.
+         Discover the bold, savory flavors of Korea with our signature fried chicken and classic street food.
+         Whether you crave spicy tteokbokki or sweet soy garlic wings, we’re here to serve happiness in every bite.
         </p>
         <button>View Menu</button>
       </div>

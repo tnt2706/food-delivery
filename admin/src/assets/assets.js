@@ -1,4 +1,4 @@
-import logo from './logo.png'
+import logo from './logo1.jpg'
 import add_icon from './add_icon.png'
 import order_icon from './order_icon.png'
 import profile_image from './profile_image.png'
@@ -14,4 +14,6 @@ export const assets ={
     parcel_icon
 }
 
-export const url = 'https://food-delivery-backend-5b6g.onrender.com'
+// export const url = 'https://food-delivery-backend-5b6g.onrender.com'
+
+export const url = 'http://localhost:4000'
