@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState({});
-  // const url = "https://food-delivery-backend-5b6g.onrender.com";
-  const url = "http://localhost:4000";
+  const [cartItems, setCartItems] = useState({});;
+  // const url = "http://localhost:4000";
+  const url = "https://kokoria-be.up.railway.app"
+
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 

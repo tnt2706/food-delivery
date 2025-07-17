@@ -2,6 +2,7 @@ import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validator from "validator";
+import config from "../config";
 
 // login user
 
@@ -28,7 +29,9 @@ const loginUser = async (req, res) => {
 // Create token
 
 const createToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET);
+  return jwt.sign({ id }, config.jwt , {
+    expiresIn: config.jwtExpiration,
+  });
 };
 
 // register user
@@ -55,7 +58,9 @@ const registerUser = async (req, res) => {
 
     // hashing user password
 
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    saltEnv = process.env.SALT || 12;
+
+    const salt = await bcrypt.genSalt(Number(saltEnv));
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new userModel({

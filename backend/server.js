@@ -1,15 +1,17 @@
 import express from "express";
+import config from "./config";
 import cors from "cors";
-import { connectDB } from "./config/db.js";
+import { connectDB } from "./initialize/db.js";
 import foodRouter from "./routes/foodRoute.js";
 import userRouter from "./routes/userRoute.js";
 import "dotenv/config";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 
+
 // app config
 const app = express();
-const port =process.env.PORT || 4000;
+const port = config.port;
 
 //middlewares
 app.use(express.json());
@@ -27,6 +29,15 @@ app.use("/api/order", orderRouter);
 
 app.get("/", (req, res) => {
   res.send("API Working");
+});
+
+app.get("/env-check", (req, res) => {
+  console.log("Environment Variables:", {
+    MONGO_URL: process.env.MONGO_URL,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    JWT_SECRET: process.env.JWT_SECRET,
+  });
+  res.send("Đã log biến môi trường!");
 });
 
 app.listen(port, () => {
