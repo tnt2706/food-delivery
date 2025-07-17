@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-import config from '../config';
+import config from '../config/index.js';
 
 
 const authMiddleware = async (req, res, next) => {
@@ -9,7 +9,7 @@ const authMiddleware = async (req, res, next) => {
     return res.json({success: false, message: 'Not Authorized Login Again'});
   }
   try {
-    const token_decode = jwt.verify(token, config.jwtSecret;);
+    const token_decode = jwt.verify(token, config.jwtSecret);
     req.body.userId = token_decode.id;
     next();
   } catch (error) {
@@ -17,4 +17,5 @@ const authMiddleware = async (req, res, next) => {
     res.json({success: false, message: 'Error'});
   }
 };
+
 export default authMiddleware;

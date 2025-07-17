@@ -1,6 +1,6 @@
-const db = require('./db');
-const app = require('./app');
-const jwt = require('./jwt');
+import db from './db.js';
+import app from './app.js';
+import jwt from './jwt.js'; 
 
 
 const config = {
@@ -9,4 +9,4 @@ const config = {
   ...jwt,
 };
 
-module.exports = config;
+export default config;

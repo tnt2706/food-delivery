@@ -1,5 +1,5 @@
 import express from "express";
-import config from "./config";
+import config from "./config/index.js";
 import cors from "cors";
 import { connectDB } from "./initialize/db.js";
 import foodRouter from "./routes/foodRoute.js";
@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 
 app.get("/env-check", (req, res) => {
   console.log("Environment Variables:", {
-    MONGO_URL: process.env.MONGO_URL,
+   MONGO_URL: process.env.MONGO_URL,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     JWT_SECRET: process.env.JWT_SECRET,
   });

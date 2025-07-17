@@ -6,7 +6,7 @@
   align-items: center;
   gap: 20px;
   padding: 20px 8vw;
-  padding-top: 80px;
+  padding-top: 40px;
   margin-top: 100px;
 }
 .footer-content {
@@ -31,14 +31,18 @@
   cursor: pointer;
 }
 
+.footer-content-left .footer-logo {
+  width: 150px;
+}
+
+.footer-content-left .footer-social-icons {
+  display: flex;
+  gap: 20px;
+}
+
 .footer-content-center h2,
 .footer-content-right h2 {
   color: white;
-}
-
-.footer-social-icons img{
-    width: 40px;
-    margin-right: 15px;
 }
 
 .footer hr{

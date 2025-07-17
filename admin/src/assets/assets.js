@@ -1,4 +1,4 @@
-import logo from './logo1.jpg'
+import logo from './logo.png'
 import add_icon from './add_icon.png'
 import order_icon from './order_icon.png'
 import profile_image from './profile_image.png'
@@ -15,5 +15,4 @@ export const assets ={
 }
 
 // export const url = 'http://localhost:4000'
-
-export const url = 'https://kokoria-be.up.railway.app'
+export const url = 'https://kokoria.up.railway.app'
