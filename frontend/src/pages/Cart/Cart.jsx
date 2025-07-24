@@ -64,7 +64,7 @@ const Cart = () => {
 
       <div className="cart-bottom">
         <div className="cart-total">
-          <h2>Tổng giỏ hàng</h2>
+          <h3>Tổng giỏ hàng</h3>
           <div>
             <div className="cart-total-details">
               <p>Tạm tính</p>

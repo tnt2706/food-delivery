@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import "./MyOrders.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
-import { assets } from "../../assets/frontend_assets/assets";
 import { priceFormat } from "../../utils/priceFormat";
+import { PackageOpen } from "lucide-react";
 
 const MyOrders = () => {
   const { url, token } = useContext(StoreContext);
@@ -20,47 +20,46 @@ const MyOrders = () => {
     }
   };
 
-  const statusOptions = [
-    { value: "Food Processing", label: "Đang xử lý" },
-    { value: "Out for delivery", label: "Đang giao hàng" },
-    { value: "Delivered", label: "Đã giao" },
-  ];
+  const statusOptions = {
+    "Food Processing": "Đang xử lý",
+    "Out for delivery": "Đang giao hàng",
+    Delivered: "Đã giao",
+  };
 
   useEffect(() => {
     if (token) {
       fetchOrders();
     }
   }, [token]);
+
   return (
     <div className="my-orders">
-      <div className="form-header">
+      <div className="orders-header">
         <p className="title">Đặt hàng</p>
         <div className="separator" />
       </div>
       <div className="container">
-        {data.map((order, index) => {
-          return (
-            <div key={index} className="my-orders-order">
-              <img src={assets.parcel_icon} alt="" />
-              <p>
-                {order.items.map((item, index) => {
-                  if (index === order.items.length - 1) {
-                    return item.name + " X " + item.quantity;
-                  } else {
-                    return item.name + " X " + item.quantity + ",";
-                  }
-                })}
-              </p>
-              <p>{priceFormat(order.amount)}</p>
-              <p>items: {order.items.length}</p>
-              <p>
-                <span>&#x25cf;</span>
-                <b> {statusOptions[order.status]}</b>
-              </p>
-              <button onClick={fetchOrders}>Track Order</button>
+        {data.map((order, index) => (
+          <div key={index} className="my-orders-order">
+            <div className="order-icon">
+              <PackageOpen size={32} color="#3b82f6" />
             </div>
-          );
-        })}
+
+            <p>
+              {order.items
+                .map((item) => `${item.name} × ${item.quantity}`)
+                .join(", ")}
+            </p>
+
+            <p>{priceFormat(order.amount)}</p>
+            <p>Số món: {order.items.length}</p>
+            <p>
+              <span>●</span>
+              <b> {statusOptions[order.status]}</b>
+            </p>
+            <button onClick={fetchOrders}>Theo dõi đơn</button>
+          </div>
+        ))}
       </div>
     </div>
   );

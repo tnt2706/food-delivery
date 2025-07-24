@@ -131,7 +131,6 @@ const ChatWidget = () => {
     if (!isVisible) {
         return (
             <button className="reopen-button" onClick={() => setIsVisible(true)}>
-                💬 Mở lại Chat
             </button>
         );
     }

@@ -56,8 +56,11 @@ const EditPopup = ({ item, onClose, onUpdate, url, token }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <button className="popup-close" onClick={onClose}>✖</button>
-        <h2>Chỉnh sửa món ăn</h2>
+         <div className="popup-header">
+          <h3>Chỉnh sửa món ăn</h3>
+          <button className="popup-close" onClick={onClose}>✖</button>
+        </div>
+
         <form className="popup-form" onSubmit={handleSubmit}>
           <div className="popup-img-upload flex-col">
             <p>Ảnh món ăn</p>
