@@ -20,6 +20,12 @@ const MyOrders = () => {
     }
   };
 
+  const statusOptions = [
+    { value: "Food Processing", label: "Đang xử lý" },
+    { value: "Out for delivery", label: "Đang giao hàng" },
+    { value: "Delivered", label: "Đã giao" },
+  ];
+
   useEffect(() => {
     if (token) {
       fetchOrders();
@@ -27,7 +33,10 @@ const MyOrders = () => {
   }, [token]);
   return (
     <div className="my-orders">
-      <h2>Orders</h2>
+      <div className="form-header">
+        <p className="title">Đặt hàng</p>
+        <div className="separator" />
+      </div>
       <div className="container">
         {data.map((order, index) => {
           return (
@@ -46,7 +55,7 @@ const MyOrders = () => {
               <p>items: {order.items.length}</p>
               <p>
                 <span>&#x25cf;</span>
-                <b> {order.status}</b>
+                <b> {statusOptions[order.status]}</b>
               </p>
               <button onClick={fetchOrders}>Track Order</button>
             </div>

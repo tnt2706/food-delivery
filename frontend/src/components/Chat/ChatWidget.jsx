@@ -71,6 +71,23 @@ const ChatWidget = () => {
         }
     };
 
+
+    const callGemini = async (message) => {
+        try {
+            const response = await axios.get(`${url}/api/chat/gemini`,
+                {
+                    params: { message },
+                }
+            );
+
+            const reply = response?.data?.message || "Không nhận được phản hồi từ Gemini.";
+            return reply;
+        } catch (error) {
+            console.error("Lỗi khi gọi Gemini:", error);
+            return "❌ Có lỗi xảy ra khi gửi câu hỏi đến chat bot. Vui lòng hãy thử lại!";
+        }
+    };
+
     const handleOptionClick = async (optionOrText) => {
         const label = typeof optionOrText === "string" ? optionOrText : optionOrText.label;
         sendMessage("user", label);
@@ -97,13 +114,15 @@ const ChatWidget = () => {
                 sendMessage("bot", `Tuyệt vời! Gõ câu hỏi bạn cần nhé.`);
                 break;
             default:
-                const reply = getBestMatchingResponse(label, chatData);
+                // const reply = getBestMatchingResponse(label, chatData);
+                const reply =  await callGemini(label);
                 sendMessage("bot", reply);
         }
     };
 
     const handleSendMessage = async () => {
         const text = inputValue.trim();
+        setInputValue("")
         if (!text) return;
         await handleOptionClick(text);
         setInputValue("");

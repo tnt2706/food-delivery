@@ -4,6 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import { priceFormat } from "../../utils/priceFormat";
 
 const PlaceOrder = () => {
   const navigate = useNavigate();
@@ -173,20 +174,20 @@ const PlaceOrder = () => {
           <div>
             <div className="cart-total-details">
               <p>Tạm tính</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>{priceFormat(getTotalCartAmount())}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <p>Phí giao hàng</p>
-              <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
+              <p>{priceFormat(getTotalCartAmount() === 0 ? 0 : 20000)}</p>
             </div>
             <hr />
             <div className="cart-total-details">
               <b>Tổng cộng</b>
               <b>
-                ${getTotalCartAmount() === 0
+                {priceFormat(getTotalCartAmount() === 0
                   ? 0
-                  : getTotalCartAmount() + 2}
+                  : getTotalCartAmount() + 20000)}
               </b>
             </div>
           </div>

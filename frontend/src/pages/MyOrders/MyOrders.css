@@ -4,12 +4,20 @@
   font-family: "Segoe UI", sans-serif;
 }
 
-.my-orders h2 {
-  font-size: 30px;
-  font-weight: 700;
-  color: #1f2937;
-  text-align: center;
-  margin-bottom: 40px;
+.my-orders .title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  text-align: left;
+}
+
+.my-orders  .separator {
+  height: 3px;
+  width: 60px;
+  background: linear-gradient(to right, #e64528, #ff8c6b);
+  border-radius: 4px;
+  margin: 10px 0 10px 0; /* bỏ auto để căn trái */
 }
 
 .container {

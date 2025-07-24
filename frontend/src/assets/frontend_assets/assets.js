@@ -83,29 +83,36 @@ export const assets = {
 export const menu_list = [
   {
     menu_name: "Chicken",
+    menu_label: "Gà rán",
     menu_image: menu_1,
   },
   {
     menu_name: "K-Food",
+    menu_label: "Món Hàn",
     menu_image: menu_3,
   },
   {
     menu_name: "Tteokbokki",
+    menu_label: "Tokbokki",
     menu_image: menu_4,
   },
   {
     menu_name: "Bibimbap",
+    menu_label: "Cơm trộn",
     menu_image: menu_5,
   },
   {
     menu_name: "Sides",
+    menu_label: "Món phụ & Ăn vặt",
     menu_image: menu_6,
   },
   {
     menu_name: "Desserts",
+    menu_label: "Tráng miệng",
     menu_image: menu_7,
   }
 ];
+
 
 
 export const food_list = [

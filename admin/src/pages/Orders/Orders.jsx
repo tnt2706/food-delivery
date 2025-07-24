@@ -1,20 +1,19 @@
 import React from "react";
 import "./Orders.css";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { assets } from "../../assets/assets";
-import { useContext } from "react";
+// import { assets } from "../../assets/assets"; // bỏ vì thay icon mới
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
+import { PackageCheck, PackageSearch, Truck, CheckCheck } from "lucide-react"; // icon thay thế đẹp hơn
 
 const Orders = ({ url }) => {
   const navigate = useNavigate();
   const { token, admin } = useContext(StoreContext);
   const [orders, setOrders] = useState([]);
 
-  const fetchAllOrder = async () => {
+  const layDanhSachDonHang = async () => {
     const response = await axios.get(url + "/api/order/list", {
       headers: { token },
     });
@@ -23,7 +22,7 @@ const Orders = ({ url }) => {
     }
   };
 
-  const statusHandler = async (event, orderId) => {
+  const capNhatTrangThai = async (event, orderId) => {
     const response = await axios.post(
       url + "/api/order/status",
       {
@@ -34,26 +33,47 @@ const Orders = ({ url }) => {
     );
     if (response.data.success) {
       toast.success(response.data.message);
-      await fetchAllOrder();
+      await layDanhSachDonHang();
     } else {
       toast.error(response.data.message);
     }
   };
+
+  const statusOptions = [
+    { value: "Food Processing", label: "Đang xử lý" },
+    { value: "Out for delivery", label: "Đang giao hàng" },
+    { value: "Delivered", label: "Đã giao" },
+  ];
+
+  const renderIconByStatus = (status) => {
+    switch (status) {
+      case "Food Processing":
+        return <PackageSearch color="#3498db" size={40} />;
+      case "Out for delivery":
+        return <Truck color="#f39c12" size={40} />;
+      case "Delivered":
+        return <CheckCheck color="#2ecc71" size={40} />;
+      default:
+        return <PackageCheck color="#95a5a6" size={40} />;
+    }
+  };
+
   useEffect(() => {
     if (!admin && !token) {
-      toast.error("Please Login First");
+      toast.error("Vui lòng đăng nhập trước");
       navigate("/");
     }
-    fetchAllOrder();
+    layDanhSachDonHang();
   }, []);
 
   return (
-    <div className="order add">
-      <h3>Order Page</h3>
+    <div className="order">
       <div className="order-list">
         {orders.map((order, index) => (
           <div key={index} className="order-item">
-            <img src={assets.parcel_icon} alt="" />
+            <div className="order-item-icon">
+              {renderIconByStatus(order.status)}
+            </div>
             <div>
               <p className="order-item-food">
                 {order.items.map((item, index) => {
@@ -81,15 +101,17 @@ const Orders = ({ url }) => {
               </div>
               <p className="order-item-phone">{order.address.phone}</p>
             </div>
-            <p>Items: {order.items.length}</p>
-            <p>${order.amount}</p>
+            <p>Số món: {order.items.length}</p>
+            <p>Tổng tiền: {order.amount.toLocaleString()} đ</p>
             <select
-              onChange={(event) => statusHandler(event, order._id)}
+              onChange={(event) => capNhatTrangThai(event, order._id)}
               value={order.status}
             >
-              <option value="Food Processing">Food Processing</option>
-              <option value="Out for delivery">Out for delivery</option>
-              <option value="Delivered">Delivered</option>
+              {statusOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
           </div>
         ))}

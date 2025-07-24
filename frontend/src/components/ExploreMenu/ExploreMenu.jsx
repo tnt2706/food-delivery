@@ -5,7 +5,10 @@ import { menu_list } from "../../assets/frontend_assets/assets";
 const ExploreMenu = ({ category, setCategory }) => {
   return (
     <div className="explore-menu" id="explore-menu">
-      <h1>Khám phá thực đơn</h1>
+      <div className="explore-menu-header">
+        <h2>Khám phá thực đơn</h2>
+        <div className="separator"></div>
+      </div>
       <p className="explore-menu-text">
         Chọn từ thực đơn phong phú với nhiều món ăn hấp dẫn. Sứ mệnh của chúng tôi là làm hài lòng khẩu vị của bạn và nâng tầm trải nghiệm ẩm thực, từng bữa ăn ngon lành một.
       </p>
@@ -26,7 +29,7 @@ const ExploreMenu = ({ category, setCategory }) => {
                 src={item.menu_image}
                 alt=""
               />
-              <p>{item.menu_name}</p>
+              <p>{item.menu_label}</p>
             </div>
           );
         })}

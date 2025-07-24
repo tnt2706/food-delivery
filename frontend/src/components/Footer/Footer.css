@@ -44,7 +44,7 @@
 }
 
 .footer-section h3 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 10px;
 }
 
@@ -55,6 +55,7 @@
 
 .footer-section ul li {
   margin-bottom: 8px;
+  font-size: 13px;
 }
 
 .footer-section ul li a {

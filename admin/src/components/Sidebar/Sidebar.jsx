@@ -1,27 +1,27 @@
-import React from 'react'
-import './Sidebar.css'
-import { assets } from '../../assets/assets'
-import { NavLink } from 'react-router-dom'
+import React from 'react';
+import './Sidebar.css';
+import { NavLink } from 'react-router-dom';
+import { PlusSquare, ListOrdered, Truck } from 'lucide-react'; // Icon hiện đại
 
-const Sidebar = () => {
+const ThanhBen = () => {
   return (
     <div className='sidebar'>
       <div className="sidebar-options">
         <NavLink to='add' className="sidebar-option">
-          <img src={assets.add_icon} alt="" />
-          <p>Add Items</p>
+          <PlusSquare className="sidebar-icon" size={24} />
+          <p>Thêm món</p>
         </NavLink>
         <NavLink to='list' className="sidebar-option">
-          <img src={assets.order_icon} alt="" />
-          <p>List Items</p>
+          <ListOrdered className="sidebar-icon" size={24} />
+          <p>Danh sách món</p>
         </NavLink>
         <NavLink to='orders' className="sidebar-option">
-          <img src={assets.order_icon} alt="" />
-          <p>Orders</p>
+          <Truck className="sidebar-icon" size={24} />
+          <p>Đơn hàng</p>
         </NavLink>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default ThanhBen;

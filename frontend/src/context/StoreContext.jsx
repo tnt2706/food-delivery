@@ -25,7 +25,7 @@ const StoreContextProvider = (props) => {
         { headers: { token } }
       );
       if(response.data.success){
-        toast.success("item Added to Cart")
+        toast.success("Item added to cart")
       }else{
         toast.error("Something went wrong")
       }
@@ -41,7 +41,7 @@ const StoreContextProvider = (props) => {
         { headers: { token } }
       );
       if(response.data.success){
-        toast.success("item Removed from Cart")
+        toast.success("Item removed from cart")
       }else{
         toast.error("Something went wrong")
       }

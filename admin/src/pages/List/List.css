@@ -1,25 +1,111 @@
-.list-table-format{
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 15px;
-    border: 1px solid #cacaca;
-    font-size: 13px;
-}
-.list-table-format.title{
-    background-color: #f9f9f9;
-}
-.list-table-format img{
-    width: 50px;
+.list-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: hsl(216, 100%, 40%);
 }
 
-@media (max-width:600px) {
-    .list-table-format{
-        grid-template-columns: 1fr 3fr 1fr;
-        gap: 15px;
-    }
-    .list-table-format.title{
-        display: none;
-    }
+/* ===== TABLE LAYOUT ===== */
+.list-table-format {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 0.7fr;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border: 1px solid #e2e8f0;
+  font-size: 14px;
+  background-color: #fff;
+  transition: background 0.2s ease;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.list-table-format:hover {
+  background-color: hsl(216, 100%, 97%);
+}
+
+.list-table-format.title {
+  background-color: hsl(216, 100%, 95%);
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+/* ===== IMAGE STYLE ===== */
+.list-table-format img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Icon wrapper (vòng tròn khi hover) */
+.icon-wrapper {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+/* Edit icon styles */
+.edit-icon svg {
+  color: #3b82f6;
+}
+
+.edit-icon:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.edit-icon:hover svg {
+  color: #2563eb;
+  transform: scale(1.15);
+}
+
+/* Delete icon styles */
+.delete-icon svg {
+  color: #ef4444;
+}
+
+.delete-icon:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.delete-icon:hover svg {
+  color: #dc2626;
+  transform: scale(1.15);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .list-table-format {
+    grid-template-columns: 1fr 2fr 1fr;
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .list-table-format.title {
+    display: none;
+  }
+
+  .action-buttons {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .list-table-format img {
+    width: 40px;
+    height: 40px;
+  }
 }
