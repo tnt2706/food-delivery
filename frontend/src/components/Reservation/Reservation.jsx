@@ -26,13 +26,13 @@ const Reservation = () => {
 
   const validate = (fields = form) => {
     const newErrors = {};
-    if (!fields.name.trim()) newErrors.name = "Name is required";
-    if (!fields.email.trim()) newErrors.email = "Email is required";
-    if (!fields.phone.trim()) newErrors.phone = "Phone number is required";
-    if (!fields.date) newErrors.date = "Date is required";
-    if (!fields.time) newErrors.time = "Time is required";
-    if (!fields.guests || Number(fields.guests) < 1) newErrors.guests = "At least 1 guest";
-    if (!fields.branch.trim()) newErrors.branch = "Please select a location";
+    if (!fields.name.trim()) newErrors.name = "Vui lòng nhập họ tên";
+    if (!fields.email.trim()) newErrors.email = "Vui lòng nhập email";
+    if (!fields.phone.trim()) newErrors.phone = "Vui lòng nhập số điện thoại";
+    if (!fields.date) newErrors.date = "Vui lòng chọn ngày";
+    if (!fields.time) newErrors.time = "Vui lòng chọn giờ";
+    if (!fields.guests || Number(fields.guests) < 1) newErrors.guests = "Cần ít nhất 1 khách";
+    if (!fields.branch.trim()) newErrors.branch = "Vui lòng chọn chi nhánh";
     return newErrors;
   };
 
@@ -56,9 +56,9 @@ const Reservation = () => {
 
     try {
       if (!token) {
-        toast.error("Please login first");
-        navigate("/reservation"); // hoặc "/signin" tùy theo app của bạn
-        throw new Error("User not authenticated");
+        toast.error("Vui lòng đăng nhập trước");
+        navigate("/reservation"); // hoặc chuyển hướng đến "/signin"
+        throw new Error("Người dùng chưa xác thực");
       }
 
       const payload = {
@@ -87,9 +87,9 @@ const Reservation = () => {
   if (submitStatus === "success") {
     return (
       <div className="success-screen">
-        <h2>🎉 Reservation Successful!</h2>
-        <p>Thank you for your booking.</p>
-        <p>We’ll redirect you to the homepage in a moment...</p>
+        <h2>🎉 Đặt bàn thành công!</h2>
+        <p>Cảm ơn bạn đã đặt chỗ.</p>
+        <p>Bạn sẽ được chuyển hướng về trang chủ sau ít giây...</p>
       </div>
     );
   }
@@ -97,13 +97,18 @@ const Reservation = () => {
   return (
     <div className="reservation-container">
       <form className="reservation-form" onSubmit={handleSubmit}>
-        <h1 className="title">Table Reservation Form</h1>
-        <p className="description">
-          Book at least <strong>2 hours</strong> in advance. We’ll confirm via email or phone.
-        </p>
+      <div className="form-header">
+        <p className="title">Form Đặt Bàn</p>
+        <div className="separator" />
+        <div className="description">
+          <span className="icon">🔔</span>
+          Vui lòng đặt bàn trước ít nhất 2 tiếng. Chúng tôi sẽ xác nhận qua email hoặc điện thoại.
+        </div>
+      </div>
+
 
         <label>
-          Contact name <span className="required">*</span>
+          Họ tên liên hệ <span className="required">*</span>
         </label>
         <input
           type="text"
@@ -115,7 +120,7 @@ const Reservation = () => {
         {errors.name && <div className="error">{errors.name}</div>}
 
         <label>
-          Email address <span className="required">*</span>
+          Địa chỉ email <span className="required">*</span>
         </label>
         <input
           type="email"
@@ -127,7 +132,7 @@ const Reservation = () => {
         {errors.email && <div className="error">{errors.email}</div>}
 
         <label>
-          Phone number <span className="required">*</span>
+          Số điện thoại <span className="required">*</span>
         </label>
         <input
           type="tel"
@@ -141,7 +146,7 @@ const Reservation = () => {
         <div className="row">
           <div className="column">
             <label>
-              Date of arrival <span className="required">*</span>
+              Ngày đến <span className="required">*</span>
             </label>
             <input
               type="date"
@@ -154,7 +159,7 @@ const Reservation = () => {
           </div>
           <div className="column">
             <label>
-              Time <span className="required">*</span>
+              Giờ <span className="required">*</span>
             </label>
             <input
               type="time"
@@ -168,7 +173,7 @@ const Reservation = () => {
         </div>
 
         <label>
-          Number of guests <span className="required">*</span>
+          Số lượng khách <span className="required">*</span>
         </label>
         <input
           type="number"
@@ -180,7 +185,7 @@ const Reservation = () => {
         {errors.guests && <div className="error">{errors.guests}</div>}
 
         <label>
-          Location <span className="required">*</span>
+          Chi nhánh <span className="required">*</span>
         </label>
         <select
           name="branch"
@@ -188,31 +193,29 @@ const Reservation = () => {
           onChange={handleChange}
           className={errors.branch ? "input-error" : ""}
         >
-          <option value="">Select a location</option>
-          <option>🏡 207/33 3/2 St, D10</option>
-          <option>🏡 573/2 Su Van Hanh St, D10</option>
-          <option>🏡 106 Le Van Duyet St, BT Dist</option>
-          <option>🏡 01S04 S203, Rainbow VGP, D9</option>
-          <option>🏡 228A Tran Hung Dao St, Can Tho</option>
-
+          <option value="">Chọn chi nhánh</option>
+          <option>🏡 207/33 đường 3/2, Q.10</option>
+          <option>🏡 573/2 Sư Vạn Hạnh, Q.10</option>
+          <option>🏡 106 Lê Văn Duyệt, Q.Bình Thạnh</option>
+          <option>🏡 228A Trần Hưng Đạo, Cần Thơ</option>
         </select>
         {errors.branch && <div className="error">{errors.branch}</div>}
 
-        <label>Additional message</label>
+        <label>Tin nhắn thêm</label>
         <textarea
           name="message"
           rows="3"
           value={form.message}
           onChange={handleChange}
-          placeholder="Enter any request or message"
+          placeholder="Nhập yêu cầu hoặc lời nhắn của bạn"
         ></textarea>
 
         <button type="submit" disabled={!isFormValid}>
-          Submit Reservation
+          Gửi đặt bàn
         </button>
 
         {submitStatus === "error" && (
-          <p className="error-msg">Submission failed. Please try again.</p>
+          <p className="error-msg">Gửi thất bại. Vui lòng thử lại.</p>
         )}
       </form>
     </div>

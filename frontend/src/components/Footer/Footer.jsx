@@ -4,41 +4,47 @@ import { assets } from "../../assets/frontend_assets/assets";
 
 const Footer = () => {
   return (
-    <div className="footer" id="footer">
+    <footer className="footer" id="footer">
       <div className="footer-content">
-        <div className="footer-content-left">
-          <img className="footer-logo" src={assets.logo} alt="" />
+        {/* Logo & Mạng xã hội */}
+        <div className="footer-section">
+          <img className="footer-logo" src={assets.logo} alt="Kokoria Logo" />
+          <p className="footer-tagline">Mang ẩm thực đến từng khoảnh khắc</p>
           <div className="footer-social-icons">
-            <a href="https://www.facebook.com/kokoria.sg?rdid=yiouvRWH7Ek92hJb&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Jkup6MAFB%2F#" target="_blank" rel="noopener noreferrer">
+            <a href="https://facebook.com/kokoria.sg" target="_blank" rel="noopener noreferrer">
               <img src={assets.facebook_icon} alt="Facebook" />
             </a>
-            <a href="https://www.instagram.com/kokoria.sg/?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw%3D%3D" target="_blank" rel="noopener noreferrer">
-              <img src={assets.linkedin_icon} alt="LinkedIn" />
+            <a href="https://instagram.com/kokoria.sg" target="_blank" rel="noopener noreferrer">
+              <img src={assets.linkedin_icon} alt="Instagram" />
             </a>
           </div>
         </div>
-        <div className="footer-content-center">
-          <h2>Company</h2>
+
+        {/* Liên kết */}
+        <div className="footer-section">
+          <h3>Công ty</h3>
           <ul>
-            <li>Home</li>
-            <li>About us</li>
-            <li>Delivery</li>
-            <li>Privacy Policy</li>
+            <li><a href="/">Trang chủ</a></li>
+            <li><a href="/about">Về chúng tôi</a></li>
+            <li><a href="/delivery">Giao hàng</a></li>
+            <li><a href="/privacy">Chính sách bảo mật</a></li>
           </ul>
         </div>
-        <div className="footer-content-right">
-          <h2>Get in touch</h2>
+
+        {/* Liên hệ */}
+        <div className="footer-section">
+          <h3>Liên hệ</h3>
           <ul>
-            <li>(+84) 070.879.6719</li>
-            <li>contact@kokoria.com</li>
+            <li><a href="tel:+840708796719">(+84) 070.879.6719</a></li>
+            <li><a href="mailto:contact@kokoria.com">contact@kokoria.com</a></li>
           </ul>
         </div>
       </div>
       <hr />
-      <p className="footer-copyright">
-        Copyright 2025 @ Kokoria.com - All Right Reserved.
+      <p className="footer-bottom-text">
+        © 2025 Kokoria.com - All rights reserved.
       </p>
-    </div>
+    </footer>
   );
 };
 

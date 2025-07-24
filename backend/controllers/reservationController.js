@@ -2,32 +2,33 @@ import reservationModel from '../models/reservationModel.js';
 import userModel from '../models/userModel.js';
 import sendMail from '../utils/email.js';
 
-// Constants
+// Hằng số trạng thái đặt bàn
 const RESERVATION_STATUS = {
-  PENDING: 'pending',
-  APPROVED: 'approved',
-  CANCELED: 'canceled'
+  PENDING: 'pending', // Chờ xác nhận
+  APPROVED: 'approved', // Đã xác nhận
+  CANCELED: 'canceled' // Đã hủy
 };
 
+// Vai trò người dùng
 const USER_ROLES = {
   ADMIN: 'admin'
 };
 
-// Email templates (English version)
+// Mẫu email bằng tiếng Việt
 const EMAIL_TEMPLATES = {
   reservation_success: (date, branch, guests) => ({
-    subject: '[Kokoria] ✅ Reservation Request Received',
-    text: `Hello,
+    subject: '[Kokoria] ✅ Đã nhận yêu cầu đặt bàn',
+    text: `Xin chào,
 
-We have received your table reservation request with the following details:
-📅 Date: ${formatDate(date)}
-🏪 Branch: ${branch}
-👥 Number of Guests: ${guests}
+Chúng tôi đã nhận được yêu cầu đặt bàn của bạn với các thông tin sau:
+📅 Ngày: ${formatDate(date)}
+🏪 Chi nhánh: ${branch}
+👥 Số lượng khách: ${guests}
 
-Current Status: Pending Confirmation  
-We will review and get back to you as soon as possible.
+Trạng thái hiện tại: Đang chờ xác nhận  
+Chúng tôi sẽ xem xét và phản hồi trong thời gian sớm nhất.
 
-Thank you for choosing our service!
+Cảm ơn bạn đã chọn dịch vụ của chúng tôi!
 
 ---
 Kokoria  
@@ -35,47 +36,47 @@ Hotline: (+84) 0708796719`
   }),
 
   reservation_approved: (date, branch, guests) => ({
-    subject: '[Kokoria] 🎉 Reservation Confirmed',
-    text: `Hello,
+    subject: '[Kokoria] 🎉 Đặt bàn đã được xác nhận',
+    text: `Xin chúc mừng,
 
-Congratulations! Your table reservation has been CONFIRMED.
+Yêu cầu đặt bàn của bạn đã được XÁC NHẬN thành công.
 
-Reservation Details:
-📅 Date & Time: ${formatDate(date)}
-🏪 Branch: ${branch}
-👥 Number of Guests: ${guests}
+Thông tin đặt bàn:
+📅 Ngày & giờ: ${formatDate(date)}
+🏪 Chi nhánh: ${branch}
+👥 Số lượng khách: ${guests}
 
-Important Notes:
-- Please arrive on time
-- For any changes, contact us at least 2 hours in advance
-- Show this message upon arrival
+Lưu ý:
+- Vui lòng đến đúng giờ
+- Nếu cần thay đổi, vui lòng liên hệ trước ít nhất 2 giờ
+- Vui lòng xuất trình email này khi đến
 
-We look forward to serving you!
+Chúng tôi rất mong được phục vụ bạn!
 
 ---
-kokoria  
+Kokoria  
 Hotline: (+84) 0708796719`
   }),
 
   reservation_canceled: (date, branch, guests, reason) => ({
-    subject: '[Kokoria] ❌ Reservation Canceled',
-    text: `Hello,
+    subject: '[Kokoria] ❌ Đặt bàn đã bị hủy',
+    text: `Xin chào,
 
-We’re sorry to inform you that your reservation has been CANCELED.
+Chúng tôi rất tiếc phải thông báo rằng yêu cầu đặt bàn của bạn đã bị HỦY.
 
-Reservation Details:
-📅 Date & Time: ${formatDate(date)}
-🏪 Branch: ${branch}
-👥 Number of Guests: ${guests}
+Thông tin đặt bàn:
+📅 Ngày & giờ: ${formatDate(date)}
+🏪 Chi nhánh: ${branch}
+👥 Số lượng khách: ${guests}
 
-Reason for cancellation: ${reason}
+Lý do hủy: ${reason}
 
-For assistance, you may:
-- Choose another time
-- Choose another branch
-- Call our hotline for support: (+84) 0708796719
+Bạn có thể:
+- Chọn thời gian khác
+- Chọn chi nhánh khác
+- Gọi hotline để được hỗ trợ: (+84) 0708796719
 
-We apologize for any inconvenience caused.
+Rất xin lỗi vì sự bất tiện này.
 
 ---
 Kokoria  
@@ -83,10 +84,8 @@ Hotline: (+84) 0708796719`
   })
 };
 
-
-// Helper functions
-const formatDate =(date) => {
-  return new Date(date).toLocaleDateString('en-GB', {
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString('vi-VN', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -102,7 +101,7 @@ const isAdmin = async (userId) => {
 };
 
 const handleError = (res, error, message = 'Có lỗi xảy ra') => {
-  console.error('Error:', error);
+  console.error('Lỗi:', error);
   res.json({ success: false, message });
 };
 
@@ -111,8 +110,7 @@ const sendReservationEmail = async (email, templateKey, ...args) => {
     const { subject, text } = EMAIL_TEMPLATES[templateKey](...args);
     await sendMail({ to: email, subject, text });
   } catch (error) {
-    console.error('Email sending failed:', error);
-    // Don't throw error to avoid breaking the main flow
+    console.error('Gửi email thất bại:', error);
   }
 };
 
@@ -129,7 +127,7 @@ const getTomorrowStart = () => {
   return tomorrow;
 };
 
-// Controllers
+// Controller thêm đặt bàn
 const addReservation = async (req, res) => {
   try {
     const { userId, email, phone, date, guests, branch, message } = req.body;
@@ -141,7 +139,6 @@ const addReservation = async (req, res) => {
       });
     }
 
-    // Create new reservation
     const newReservation = new reservationModel({
       userId,
       email,
@@ -157,14 +154,7 @@ const addReservation = async (req, res) => {
 
     await newReservation.save();
 
-    // Send confirmation email
-    await sendReservationEmail(
-      email, 
-      'reservation_success', 
-      date, 
-      branch, 
-      guests
-    );
+    await sendReservationEmail(email, 'reservation_success', date, branch, guests);
 
     res.json({
       success: true,
@@ -177,29 +167,22 @@ const addReservation = async (req, res) => {
   }
 };
 
+// Controller lấy danh sách đặt bàn
 const listReservations = async (req, res) => {
   try {
-    const { 
-      dateFilter = 'future', // 'all', 'today', 'future', 'past'
-      startDate,
-      endDate 
-    } = req.query;
-
-   const { userId } = req.body;
+    const { dateFilter = 'future', startDate, endDate } = req.query;
+    const { userId } = req.body;
     const filter = {};
-  
+
     if (!await isAdmin(userId)) {
       filter["userId"] = userId;
     }
-    
+
     const today = getTodayStart();
-    
+
     switch (dateFilter) {
       case 'today':
-        filter["date"] = {
-          $gte: today,
-          $lt: getTomorrowStart()
-        };
+        filter["date"] = { $gte: today, $lt: getTomorrowStart() };
         break;
       case 'future':
         filter["date"] = { $gte: today };
@@ -215,63 +198,47 @@ const listReservations = async (req, res) => {
           };
         }
         break;
-      case 'all':
       default:
         break;
     }
 
-    const reservations = await reservationModel
-      .find(filter)
-      .sort({ date: 1 });
-    
+    const reservations = await reservationModel.find(filter).sort({ date: 1 });
+
     res.json({
       isSuccess: true,
       data: reservations,
       total: reservations.length,
       filter: dateFilter
     });
-    
+
   } catch (error) {
     handleError(res, error, 'Không thể lấy danh sách đặt bàn');
   }
 };
 
-
+// Controller cập nhật trạng thái đặt bàn
 const updateReservation = async (req, res) => {
   try {
     const { userId, reservationId, status, reason } = req.body;
 
-    // Validate admin permission
     if (!await isAdmin(userId)) {
-      return res.json({ 
-        success: false, 
-        message: 'Bạn không có quyền thực hiện chức năng này' 
-      });
+      return res.json({ success: false, message: 'Bạn không có quyền thực hiện chức năng này' });
     }
 
     if (!reservationId || !status) {
-      return res.json({ 
-        success: false, 
-        message: 'Thiếu thông tin reservationId hoặc status' 
-      });
+      return res.json({ success: false, message: 'Thiếu thông tin reservationId hoặc status' });
     }
 
-    // Validate status
     if (!Object.values(RESERVATION_STATUS).includes(status)) {
-      return res.json({ 
-        success: false, 
-        message: 'Trạng thái không hợp lệ' 
-      });
+      return res.json({ success: false, message: 'Trạng thái không hợp lệ' });
     }
 
-    // Prepare update data
     const updateData = {
       status,
       processedBy: userId,
       updatedAt: new Date()
     };
 
-    // Handle reason for canceled status
     if (status === RESERVATION_STATUS.CANCELED) {
       updateData.reason = reason && reason.trim() !== "" 
         ? reason.trim() 
@@ -280,38 +247,16 @@ const updateReservation = async (req, res) => {
       updateData.reason = "";
     }
 
-    // Update reservation
-    const reservation = await reservationModel.findByIdAndUpdate(
-      reservationId,
-      updateData,
-      { new: true }
-    );
+    const reservation = await reservationModel.findByIdAndUpdate(reservationId, updateData, { new: true });
 
     if (!reservation) {
-      return res.json({ 
-        success: false, 
-        message: 'Không tìm thấy đơn đặt bàn' 
-      });
+      return res.json({ success: false, message: 'Không tìm thấy đơn đặt bàn' });
     }
 
-    // Send notification email
     if (status === RESERVATION_STATUS.APPROVED) {
-      await sendReservationEmail(
-        reservation.email,
-        'reservation_approved',
-        reservation.date,
-        reservation.branch,
-        reservation.guests
-      );
+      await sendReservationEmail(reservation.email, 'reservation_approved', reservation.date, reservation.branch, reservation.guests);
     } else if (status === RESERVATION_STATUS.CANCELED) {
-      await sendReservationEmail(
-        reservation.email,
-        'reservation_canceled',
-        reservation.date,
-        reservation.branch,
-        reservation.guests,
-        reservation.reason
-      );
+      await sendReservationEmail(reservation.email, 'reservation_canceled', reservation.date, reservation.branch, reservation.guests, reservation.reason);
     }
 
     res.json({ 

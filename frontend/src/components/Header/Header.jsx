@@ -5,12 +5,11 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header-contents">
-        <h2>Order your favourite food here</h2>
+        <h2>Đặt món Hàn yêu thích ngay tại đây</h2>
         <p>
-         Discover the bold, savory flavors of Korea with our signature fried chicken and classic street food.
-         Whether you crave spicy tteokbokki or sweet soy garlic wings, we’re here to serve happiness in every bite.
+          Thưởng thức gà rán chuẩn vị, tokbokki cay, và nhiều món ngon đường phố Hàn Quốc. Mỗi phần ăn là một niềm vui!
         </p>
-        <button>View Menu</button>
+        <button>Xem Thực Đơn</button>
       </div>
     </div>
   );

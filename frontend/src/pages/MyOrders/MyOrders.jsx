@@ -3,6 +3,7 @@ import "./MyOrders.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { assets } from "../../assets/frontend_assets/assets";
+import { priceFormat } from "../../utils/priceFormat";
 
 const MyOrders = () => {
   const { url, token } = useContext(StoreContext);
@@ -41,7 +42,7 @@ const MyOrders = () => {
                   }
                 })}
               </p>
-              <p>${order.amount}.00</p>
+              <p>{priceFormat(order.amount)}</p>
               <p>items: {order.items.length}</p>
               <p>
                 <span>&#x25cf;</span>

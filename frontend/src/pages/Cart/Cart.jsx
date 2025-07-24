@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
+import { priceFormat } from "../../utils/priceFormat";
 
 const Cart = () => {
   const {
@@ -11,35 +12,45 @@ const Cart = () => {
     addToCart,
     removeFromCart,
     getTotalCartAmount,
-    url
+    url,
   } = useContext(StoreContext);
 
-  const navigate=useNavigate();
+  const [totalAmount, setTotalAmount] = useState(0);
+  const navigate = useNavigate();
+
+  // Tính lại tổng khi cartItems thay đổi
+  useEffect(() => {
+    setTotalAmount(getTotalCartAmount());
+  }, [cartItems, getTotalCartAmount]);
 
   return (
     <div className="cart">
       <div className="cart-items">
         <div className="cart-items-title">
-          <p>Items</p>
-          <p>Title</p>
-          <p>Price</p>
-          <p>Quantity</p>
-          <p>Total</p>
-          <p>Remove</p>
+          <p>Ảnh</p>
+          <p>Tên món</p>
+          <p>Đơn giá</p>
+          <p>Số lượng</p>
+          <p>Thành tiền</p>
+          <p>Xóa</p>
         </div>
         <br />
         <hr />
-        {food_list.map((item, index) => {
+        {food_list.map((item) => {
           if (cartItems[item._id] > 0) {
             return (
-              <div>
+              <div key={item._id}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={url+"/images/"+item.image} alt="" />
+                  <img src={`${url}/images/${item.image}`} alt={item.name} />
                   <p>{item.name}</p>
-                  <p>${item.price}</p>
+                  <p>{priceFormat(item.price)}</p>
                   <p>{cartItems[item._id]}</p>
-                  <p>${item.price * cartItems[item._id]}</p>
-                  <p onClick={() => removeFromCart(item._id)} className="cross">
+                  <p>{priceFormat(item.price * cartItems[item._id])}</p>
+                  <p
+                    onClick={() => removeFromCart(item._id)}
+                    className="cross"
+                    style={{ cursor: "pointer" }}
+                  >
                     x
                   </p>
                 </div>
@@ -47,35 +58,40 @@ const Cart = () => {
               </div>
             );
           }
+          return null;
         })}
       </div>
+
       <div className="cart-bottom">
         <div className="cart-total">
-          <h2>Cart Totals</h2>
+          <h2>Tổng giỏ hàng</h2>
           <div>
             <div className="cart-total-details">
-              <p>Subtotals</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>Tạm tính</p>
+              <p>{priceFormat(totalAmount)}</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <p>Delivery Fee</p>
-              <p>${getTotalCartAmount()===0?0:2}</p>
+              <p>Phí giao hàng</p>
+              <p>{ priceFormat(totalAmount === 0 ? 0 : 20000)}</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <b>Total</b>
-              <b>${getTotalCartAmount()===0?0:getTotalCartAmount()+2}</b>
+              <b>Tổng cộng</b>
+              <b>{priceFormat(totalAmount === 0 ? 0 : totalAmount + 20000)}</b>
             </div>
           </div>
-          <button onClick={()=>navigate('/order')}>PROCEED TO CHECKOUT</button>
+          <button onClick={() => navigate("/order")}>
+            TIẾN HÀNH THANH TOÁN
+          </button>
         </div>
+
         <div className="cart-promocode">
           <div>
-            <p>If you have a promocode, Enter it here</p>
+            <p>Nếu bạn có mã giảm giá, nhập tại đây</p>
             <div className="cart-promocode-input">
-              <input type="text" placeholder="promo code" />
-              <button>Submit</button>
+              <input type="text" placeholder="Mã giảm giá" />
+              <button>Áp dụng</button>
             </div>
           </div>
         </div>

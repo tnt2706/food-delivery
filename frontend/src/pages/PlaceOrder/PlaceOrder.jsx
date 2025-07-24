@@ -3,13 +3,14 @@ import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const PlaceOrder = () => {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const { getTotalCartAmount, token, food_list, cartItems, url } =
     useContext(StoreContext);
+
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -33,57 +34,65 @@ const PlaceOrder = () => {
   const placeOrder = async (event) => {
     event.preventDefault();
     let orderItems = [];
+
     food_list.map((item) => {
       if (cartItems[item._id] > 0) {
-        let itemInfo = item;
+        let itemInfo = { ...item };
         itemInfo["quantity"] = cartItems[item._id];
         orderItems.push(itemInfo);
       }
     });
+
     let orderData = {
       address: data,
       items: orderItems,
       amount: getTotalCartAmount() + 2,
     };
-    
-    let response= await axios.post(url+"/api/order/place",orderData,{headers:{token}});
-    if(response.data.success){
-      setSubmitStatus("success");
-      setTimeout(() => {
-        window.location.href = "/";
-      }, 1000);
-    }else{
-      toast.error("Errors!")
+
+    try {
+      const response = await axios.post(`${url}/api/order/place`, orderData, {
+        headers: { token },
+      });
+
+      if (response.data.success) {
+        setSubmitStatus("success");
+        setTimeout(() => {
+          window.location.href = "/";
+        }, 1000);
+      } else {
+        toast.error("Đã có lỗi xảy ra khi đặt hàng.");
+        setSubmitStatus("error");
+      }
+    } catch (error) {
+      toast.error("Không thể gửi đơn hàng. Vui lòng thử lại.");
       setSubmitStatus("error");
     }
   };
 
-  useEffect(()=>{
-    if(!token){
-      toast.error("Please Login first")
-      navigate("/cart")
+  useEffect(() => {
+    if (!token) {
+      toast.error("Vui lòng đăng nhập trước khi đặt hàng.");
+      navigate("/cart");
+    } else if (getTotalCartAmount() === 0) {
+      toast.error("Vui lòng thêm món vào giỏ hàng.");
+      navigate("/cart");
     }
-    else if(getTotalCartAmount()===0){
-      toast.error("Please Add Items to Cart");
-      navigate("/cart")
-    }
-  },[token])
+  }, [token]);
 
   if (submitStatus === "success") {
-   return (
-    <div className="success-screen">
-      <h2>🎉 Order Successful!</h2>
-      <p>Thank you for your purchase.</p>
-      <p>We’ll redirect you to the homepage in a moment...</p>
-    </div>
-  );
-
+    return (
+      <div className="success-screen">
+        <h2>🎉 Đặt hàng thành công!</h2>
+        <p>Cảm ơn bạn đã mua hàng.</p>
+        <p>Bạn sẽ được chuyển về trang chủ trong giây lát...</p>
+      </div>
+    );
   }
 
   return (
     <form className="place-order" onSubmit={placeOrder}>
       <div className="place-order-left">
-        <p className="title">Delivery Information</p>
+        <p className="title">Thông tin giao hàng</p>
         <div className="multi-fields">
           <input
             required
@@ -91,7 +100,7 @@ const PlaceOrder = () => {
             value={data.firstName}
             onChange={onChangeHandler}
             type="text"
-            placeholder="First name"
+            placeholder="Tên"
           />
           <input
             required
@@ -99,7 +108,7 @@ const PlaceOrder = () => {
             value={data.lastName}
             onChange={onChangeHandler}
             type="text"
-            placeholder="Last name"
+            placeholder="Họ"
           />
         </div>
         <input
@@ -107,84 +116,81 @@ const PlaceOrder = () => {
           name="email"
           value={data.email}
           onChange={onChangeHandler}
-          type="text"
-          placeholder="Email Address"
+          type="email"
+          placeholder="Địa chỉ Email"
         />
         <input
-          // required
           name="street"
           value={data.street}
           onChange={onChangeHandler}
           type="text"
-          placeholder="Street"
+          placeholder="Địa chỉ (số nhà, đường...)"
         />
         <div className="multi-fields">
           <input
-            // required
             name="city"
             value={data.city}
             onChange={onChangeHandler}
             type="text"
-            placeholder="City"
+            placeholder="Thành phố"
           />
           <input
-            // required
             name="state"
             value={data.state}
             onChange={onChangeHandler}
             type="text"
-            placeholder="State"
+            placeholder="Tỉnh / Quận"
           />
         </div>
         <div className="multi-fields">
           <input
-            // required
             name="zipcode"
             value={data.zipcode}
             onChange={onChangeHandler}
             type="text"
-            placeholder="Zip Code"
+            placeholder="Mã bưu điện"
           />
           <input
-            // required
             name="country"
             value={data.country}
             onChange={onChangeHandler}
             type="text"
-            placeholder="Country"
+            placeholder="Quốc gia"
           />
         </div>
         <input
-          // required
           name="phone"
           value={data.phone}
           onChange={onChangeHandler}
           type="text"
-          placeholder="Phone"
+          placeholder="Số điện thoại"
         />
       </div>
+
       <div className="place-order-right">
         <div className="cart-total">
-          <h2>Cart Totals</h2>
+          <h2>Tổng đơn hàng</h2>
           <div>
             <div className="cart-total-details">
-              <p>Subtotals</p>
+              <p>Tạm tính</p>
               <p>${getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <p>Delivery Fee</p>
+              <p>Phí giao hàng</p>
               <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <b>Total</b>
+              <b>Tổng cộng</b>
               <b>
-                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
+                ${getTotalCartAmount() === 0
+                  ? 0
+                  : getTotalCartAmount() + 2}
               </b>
             </div>
           </div>
-          <button type="submit">PROCEED TO PAYMENT</button>
+          <button type="submit">THANH TOÁN NGAY</button>
         </div>
       </div>
     </form>
