@@ -41,17 +41,18 @@ const Navbar = ({ setShowLogin }) => {
       </nav>
 
       <div className="navbar-right">
-        <div className={`navbar-search-icon ${getTotalCartAmount() > 0 ? 'has-items' : ''}`}>
-          <Link to="/cart">
-            <img src={assets.basket_icon} alt="Giỏ hàng" />
-          </Link>
-          <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
-        </div>
-
+      
         {!token ? (
           <button className="login-btn" onClick={() => setShowLogin(true)}>Đăng nhập</button>
         ) : (
-          <div className="navbar-profile">
+          <>
+             <div className={`navbar-search-icon ${getTotalCartAmount() > 0 ? 'has-items' : ''}`}>
+              <Link to="/cart">
+                <img src={assets.basket_icon} alt="Giỏ hàng" />
+              </Link>
+              <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+            </div>
+            <div className="navbar-profile">
             <img src={assets.profile_icon} alt="Tài khoản" className="profile-icon" />
             <ul className="nav-profile-dropdown">
               <li onClick={() => navigate("/myorders")}> <img src={assets.bag_icon} alt="Đơn hàng" /> <p>Đơn hàng</p> </li>
@@ -59,6 +60,7 @@ const Navbar = ({ setShowLogin }) => {
               <li onClick={logout}> <img src={assets.logout_icon} alt="Đăng xuất" /> <p>Đăng xuất</p> </li>
             </ul>
           </div>
+          </>
         )}
       </div>
     </header>

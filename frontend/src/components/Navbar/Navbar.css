@@ -81,7 +81,7 @@
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
 
 .navbar-right button {
@@ -97,8 +97,7 @@
 }
 
 .navbar-right button:hover {
-  background-color: #ffe8e6;
-  color: #c0392b;
+  background-color: #ffe8e6;color: #c0392b;
   border-color: #c0392b;
 }
 
