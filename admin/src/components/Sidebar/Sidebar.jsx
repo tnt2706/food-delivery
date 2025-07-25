@@ -1,7 +1,7 @@
 import React from 'react';
 import './Sidebar.css';
 import { NavLink } from 'react-router-dom';
-import { PlusSquare, ListOrdered, Truck } from 'lucide-react'; // Icon hiện đại
+import { PlusSquare, ListOrdered, Truck, ShoppingCart } from 'lucide-react';
 
 const ThanhBen = () => {
   return (
@@ -19,6 +19,10 @@ const ThanhBen = () => {
           <Truck className="sidebar-icon" size={24} />
           <p>Đơn hàng</p>
         </NavLink>
+        {/* <NavLink to='reservation' className="sidebar-option">
+          <ShoppingCart className="sidebar-icon" size={24} />
+          <p>Đặt</p>
+        </NavLink> */}
       </div>
     </div>
   );

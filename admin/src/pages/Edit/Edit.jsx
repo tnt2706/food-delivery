@@ -14,9 +14,24 @@ const EditPopup = ({ item, onClose, onUpdate, url, token }) => {
     category: item.category,
   });
 
+  const formatPrice = (value) => {
+    if (!value) return "";
+    return Number(value).toLocaleString("vi-VN");
+  };
+
+  const [priceDisplay, setPriceDisplay] = useState(formatPrice(item.price));
+
+
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+
+    if (name === "price") {
+      const rawValue = value.replace(/\D/g, ""); // bỏ dấu . và ký tự không phải số
+      setData((prev) => ({ ...prev, price: rawValue }));
+      setPriceDisplay(formatPrice(rawValue));
+    } else {
+      setData((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleImageChange = (e) => {
@@ -27,8 +42,8 @@ const EditPopup = ({ item, onClose, onUpdate, url, token }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
-    formData.append("id", item._id);
     formData.append("name", data.name);
     formData.append("description", data.description);
     formData.append("price", Number(data.price));
@@ -38,25 +53,30 @@ const EditPopup = ({ item, onClose, onUpdate, url, token }) => {
     }
 
     try {
-      const response = await axios.post(`${url}/api/food/edit`, formData, {
-        headers: { token },
+      const response = await axios.put(`${url}/api/food/update/${item._id}`, formData, {
+        headers: {
+          token,
+          "Content-Type": "multipart/form-data",
+        },
       });
+
       if (response.data.success) {
         toast.success("Cập nhật món ăn thành công");
         onUpdate();
         onClose();
       } else {
-        toast.error("❌ Cập nhật thất bại");
+        toast.error("Cập nhật thất bại");
       }
     } catch (err) {
       toast.error("Lỗi máy chủ");
     }
   };
 
+
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-         <div className="popup-header">
+        <div className="popup-header">
           <h3>Chỉnh sửa món ăn</h3>
           <button className="popup-close" onClick={onClose}>✖</button>
         </div>
@@ -65,17 +85,9 @@ const EditPopup = ({ item, onClose, onUpdate, url, token }) => {
           <div className="popup-img-upload flex-col">
             <p>Ảnh món ăn</p>
             <label htmlFor="edit-image">
-              <img
-                src={previewImage || assets.upload_area}
-                alt="preview"
-              />
+              <img src={previewImage || assets.upload_area} alt="preview" />
             </label>
-            <input
-              type="file"
-              id="edit-image"
-              onChange={handleImageChange}
-              hidden
-            />
+            <input type="file" id="edit-image" onChange={handleImageChange} hidden />
           </div>
 
           <label>
@@ -120,9 +132,9 @@ const EditPopup = ({ item, onClose, onUpdate, url, token }) => {
           <label>
             Giá món ăn:
             <input
-              type="number"
+              type="text"
               name="price"
-              value={data.price}
+              value={priceDisplay}
               onChange={onChangeHandler}
               required
             />

@@ -59,7 +59,21 @@
   cursor: pointer;
 }
 
-/* Edit icon styles */
+/* ===== View icon styles ===== */
+.view-icon svg {
+  color: #10b981; /* xanh ngọc */
+}
+
+.view-icon:hover {
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.view-icon:hover svg {
+  color: #059669;
+  transform: scale(1.15);
+}
+
+/* ===== Edit icon styles ===== */
 .edit-icon svg {
   color: #3b82f6;
 }
@@ -73,7 +87,7 @@
   transform: scale(1.15);
 }
 
-/* Delete icon styles */
+/* ===== Delete icon styles ===== */
 .delete-icon svg {
   color: #ef4444;
 }

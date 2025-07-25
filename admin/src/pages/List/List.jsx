@@ -4,8 +4,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
-import { Trash2, Pencil } from 'lucide-react';
+import { Trash2, Pencil, Eye } from 'lucide-react';
 import EditPopup from "../Edit/Edit";
+import ViewPopup from "../View/View";
 
 const List = ({ url }) => {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ const List = ({ url }) => {
   const [list, setList] = useState([]);
   const [editItem, setEditItem] = useState(null);
   const [showEditPopup, setShowEditPopup] = useState(false);
+  const [viewItem, setViewItem] = useState(null);
+  const [showViewPopup, setShowViewPopup] = useState(false);
 
   const fetchList = async () => {
     const response = await axios.get(`${url}/api/food/list`);
@@ -40,6 +43,11 @@ const List = ({ url }) => {
   const handleEdit = (item) => {
     setEditItem(item);
     setShowEditPopup(true);
+  };
+
+  const handleView = (item) => {
+    setViewItem(item);
+    setShowViewPopup(true);
   };
 
   const categoryMap = {
@@ -76,10 +84,25 @@ const List = ({ url }) => {
             <p>{categoryMap[item.category]}</p>
             <p>{item.price.toLocaleString()} đ</p>
             <div className="action-buttons">
-              <div className="icon-wrapper edit-icon" title="Chỉnh sửa" onClick={() => handleEdit(item)}>
+              <div
+                className="icon-wrapper view-icon"
+                title="Xem trước"
+                onClick={() => handleView(item)}
+              >
+                <Eye size={18} strokeWidth={2} />
+              </div>
+              <div
+                className="icon-wrapper edit-icon"
+                title="Chỉnh sửa"
+                onClick={() => handleEdit(item)}
+              >
                 <Pencil size={18} strokeWidth={2} />
               </div>
-              <div className="icon-wrapper delete-icon" title="Xóa món" onClick={() => removeFood(item._id)}>
+              <div
+                className="icon-wrapper delete-icon"
+                title="Xóa món"
+                onClick={() => removeFood(item._id)}
+              >
                 <Trash2 size={18} strokeWidth={2} />
               </div>
             </div>
@@ -96,6 +119,14 @@ const List = ({ url }) => {
           token={token}
         />
       )}
+
+      {showViewPopup && (
+      <ViewPopup
+        item={viewItem}
+        onClose={() => setShowViewPopup(false)}
+        url={url}
+      />
+    )}
     </div>
   );
 };
