@@ -5,9 +5,11 @@ import { toast } from "react-toastify";
 export const StoreContext = createContext(null);
 
 const StoreContextProvider = (props) => {
-  const [cartItems, setCartItems] = useState({});;
+  const [cartItems, setCartItems] = useState({});
+
   // const url = "http://localhost:4000";
-  const url = "https://kokoria.up.railway.app"
+  const url = "https://kokoria.up.railway.app";
+
 
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
@@ -19,15 +21,15 @@ const StoreContextProvider = (props) => {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
     if (token) {
-      const response=await axios.post(
+      const response = await axios.post(
         url + "/api/cart/add",
         { itemId },
         { headers: { token } }
       );
-      if(response.data.success){
-        toast.success("Item added to cart")
-      }else{
-        toast.error("Something went wrong")
+      if (response.data.success) {
+        toast.success("Đã thêm món vào giỏ hàng");
+      } else {
+        toast.error("Đã có lỗi xảy ra");
       }
     }
   };
@@ -35,15 +37,15 @@ const StoreContextProvider = (props) => {
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     if (token) {
-      const response= await axios.post(
+      const response = await axios.post(
         url + "/api/cart/remove",
         { itemId },
         { headers: { token } }
       );
-      if(response.data.success){
-        toast.success("Item removed from cart")
-      }else{
-        toast.error("Something went wrong")
+      if (response.data.success) {
+        toast.success("Đã xóa món khỏi giỏ hàng");
+      } else {
+        toast.error("Đã có lỗi xảy ra");
       }
     }
   };
@@ -64,7 +66,7 @@ const StoreContextProvider = (props) => {
     if (response.data.success) {
       setFoodList(response.data.data);
     } else {
-      alert("Error! Products are not fetching..");
+      alert("Lỗi! Không thể lấy danh sách sản phẩm.");
     }
   };
 
@@ -99,10 +101,12 @@ const StoreContextProvider = (props) => {
     token,
     setToken,
   };
+
   return (
     <StoreContext.Provider value={contextValue}>
       {props.children}
     </StoreContext.Provider>
   );
 };
+
 export default StoreContextProvider;
