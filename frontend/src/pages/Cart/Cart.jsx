@@ -18,7 +18,6 @@ const Cart = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const navigate = useNavigate();
 
-  // Tính lại tổng khi cartItems thay đổi
   useEffect(() => {
     setTotalAmount(getTotalCartAmount());
   }, [cartItems, getTotalCartAmount]);

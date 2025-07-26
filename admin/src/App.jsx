@@ -14,7 +14,7 @@ const App = () => {
   const url = "https://kokoria.up.railway.app"
   return (
     <div>
-      <ToastContainer />
+      <ToastContainer autoClose={1500}  />
       <Navbar />
       <hr />
       <div className="app-content">

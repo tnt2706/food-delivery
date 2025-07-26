@@ -23,7 +23,7 @@ const App = () => {
       {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
 
       <div className="app">
-        <ToastContainer />
+        <ToastContainer autoClose={1500}  />
         <Navbar setShowLogin={setShowLogin} />
         <Routes>
           <Route path="/" element={<Home />} />

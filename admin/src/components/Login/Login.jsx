@@ -40,21 +40,25 @@ const Login = ({ url }) => {
   };
 
   useEffect(() => {
-    if (admin && token) navigate("/add");
-  }, []);
+    const savedToken = localStorage.getItem("token");
+    const isAdmin = localStorage.getItem("admin") === "true";
+
+    if (savedToken && isAdmin) {
+      setToken(savedToken);
+      setAdmin(true);
+      navigate("/add");
+    }
+  }, [admin, token]);
 
   return (
     <div className="login-popup">
       <form onSubmit={onLogin} className="login-popup-container">
         <img src={assets.logo} className="login-popup-logo" alt="Logo" />
-        <div className="login-popup-title">
-          Đăng nhập quản trị
-        </div>
+        <div className="login-popup-title">Đăng nhập quản trị</div>
         <div className="login-popup-inputs">
           <input
             name="email"
             value={data.email}
-            // value="admin@gmail.com"
             onChange={onChangeHandler}
             type="email"
             placeholder="Nhập email của bạn"
@@ -63,7 +67,6 @@ const Login = ({ url }) => {
           <input
             name="password"
             value={data.password}
-            // value = "tranngoctinh96"
             onChange={onChangeHandler}
             type="password"
             placeholder="Nhập mật khẩu"

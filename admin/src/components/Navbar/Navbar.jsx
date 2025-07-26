@@ -28,7 +28,7 @@ const ThanhDieuHuong = () => {
         {token && admin ? (
           <p className="auth-btn" onClick={dangXuat}>Đăng xuất</p>
         ) : (
-          <p className="auth-btn" onClick={() => dieuHuong("/")}>Đăng nhập</p>
+          <p className="auth-btn-login" onClick={() => dieuHuong("/")}></p>
         )}
         <img className="profile" src={assets.profile_image} alt="ảnh đại diện" />
       </div>

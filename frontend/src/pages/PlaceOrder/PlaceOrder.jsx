@@ -9,8 +9,7 @@ import { priceFormat } from "../../utils/priceFormat";
 const PlaceOrder = () => {
   const navigate = useNavigate();
 
-  const { getTotalCartAmount, token, food_list, cartItems, url } =
-    useContext(StoreContext);
+  const { getTotalCartAmount, token, food_list, cartItems, url } = useContext(StoreContext);
 
   const [data, setData] = useState({
     firstName: "",
@@ -47,7 +46,7 @@ const PlaceOrder = () => {
     let orderData = {
       address: data,
       items: orderItems,
-      amount: getTotalCartAmount() + 2,
+      amount: getTotalCartAmount() + 20000,
     };
 
     try {
@@ -59,7 +58,7 @@ const PlaceOrder = () => {
         setSubmitStatus("success");
         setTimeout(() => {
           window.location.href = "/";
-        }, 1000);
+        }, 5000);
       } else {
         toast.error("Đã có lỗi xảy ra khi đặt hàng.");
         setSubmitStatus("error");
@@ -97,19 +96,19 @@ const PlaceOrder = () => {
         <div className="multi-fields">
           <input
             required
-            name="firstName"
-            value={data.firstName}
-            onChange={onChangeHandler}
-            type="text"
-            placeholder="Tên"
-          />
-          <input
-            required
             name="lastName"
             value={data.lastName}
             onChange={onChangeHandler}
             type="text"
             placeholder="Họ"
+          />
+          <input
+            required
+            name="firstName"
+            value={data.firstName}
+            onChange={onChangeHandler}
+            type="text"
+            placeholder="Tên"
           />
         </div>
         <input
@@ -133,30 +132,14 @@ const PlaceOrder = () => {
             value={data.city}
             onChange={onChangeHandler}
             type="text"
-            placeholder="Thành phố"
+            placeholder="Quận / Huyện"
           />
           <input
             name="state"
             value={data.state}
             onChange={onChangeHandler}
             type="text"
-            placeholder="Tỉnh / Quận"
-          />
-        </div>
-        <div className="multi-fields">
-          <input
-            name="zipcode"
-            value={data.zipcode}
-            onChange={onChangeHandler}
-            type="text"
-            placeholder="Mã bưu điện"
-          />
-          <input
-            name="country"
-            value={data.country}
-            onChange={onChangeHandler}
-            type="text"
-            placeholder="Quốc gia"
+            placeholder="Tỉnh / Thành phố "
           />
         </div>
         <input

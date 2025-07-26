@@ -45,18 +45,21 @@ const Add = ({ url }) => {
         category: "Chicken",
       });
       setImage(false);
-      toast.success("🎉 " + response.data.message);
+      toast.success(response.data.message);
     } else {
-      toast.error("❌ " + response.data.message);
+      toast.error(response.data.message);
     }
   };
 
   useEffect(() => {
-    if (!admin && !token) {
+    const localToken = localStorage.getItem("token");
+    const localAdmin = localStorage.getItem("admin");
+
+    if (!(admin || localAdmin) || !(token || localToken)) {
       toast.error("Vui lòng đăng nhập trước");
       navigate("/");
     }
-  }, []);
+  }, [admin, token]);
 
   return (
     <div className="add">
