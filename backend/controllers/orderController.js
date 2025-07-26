@@ -44,7 +44,6 @@ const placeOrder = async (req, res) => {
       sendMail({ to: req.body.address?.email, subject, text: body });
     }
 
-
     res.json({
       success: true,
       message: 'Đặt hàng thành công',
@@ -121,13 +120,12 @@ const updateStatus = async (req, res) => {
       const { subject, body } = emailMessageData || {}
       const addressEmail = order?.address?.email
 
-      if (addressEmail != undefined || addressEmail != nil || subject != undefined || body == undefined) {
-        res.json({ success: true, message: 'Cập nhật trạng thái thành công' });
+      if (addressEmail == undefined || addressEmail == null || subject == undefined || body == undefined) {
+        res.json({ success: true, message: 'Cập nhật thành công' });
+      }else{
+        sendMail({ to: addressEmail, subject, text: body });
+        res.json({ success: true, message: 'Cập nhật thành công' });
       }
-
-      sendMail({ to: addressEmail, subject, text: body });
-      res.json({ success: true, message: 'Cập nhật trạng thái thành công' });
-     
     } else {
       res.json({ success: false, message: 'Bạn không phải là quản trị viên' });
     }

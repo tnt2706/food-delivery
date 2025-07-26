@@ -34,6 +34,7 @@ const Orders = ({ url }) => {
     if (response.data.success) {
       toast.success(response.data.message);
       await getOrder();
+      navigate('/orders')
     } else {
       toast.error(response.data.message);
     }
@@ -59,12 +60,15 @@ const Orders = ({ url }) => {
   };
 
   useEffect(() => {
-    if (!admin && !token) {
+    const localToken = localStorage.getItem("token");
+    const localAdmin = localStorage.getItem("admin");
+
+    if (!(admin || localAdmin) || !(token || localToken)) {
       toast.error("Vui lòng đăng nhập trước");
       navigate("/");
     }
     getOrder();
-  }, []);
+  }, [admin, token]);
 
   return (
     <div className="order">

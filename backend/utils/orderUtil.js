@@ -17,7 +17,7 @@ Xin chào ${firstName} ${lastName},
 
 Đơn hàng của bạn hiện đang được chuẩn bị.
 
-🧾 Mã đơn hàng: ${order._id}
+🧾 Mã đơn hàng: ${order.orderNumber}
 📦 Trạng thái: Đang xử lý
 
 🏠 Địa chỉ giao hàng:
@@ -47,7 +47,7 @@ Xin chào ${firstName} ${lastName},
 
 Đơn hàng của bạn đang được giao đến địa chỉ bạn đã cung cấp.
 
-🧾 Mã đơn hàng: ${order._id}
+🧾 Mã đơn hàng: ${order.orderNumber}
 📦 Trạng thái: Đang giao hàng
 
 Tổng tiền thanh toán: ${order.amount.toLocaleString("vi-VN")}đ
@@ -70,7 +70,7 @@ Xin chào ${firstName} ${lastName},
 
 Cảm ơn bạn đã đặt hàng tại cửa hàng của chúng tôi!
 
-🧾 Mã đơn hàng: ${order._id}
+🧾 Mã đơn hàng: ${order.orderNumber}
 📦 Trạng thái: Đã giao hàng
 
 Tổng tiền thanh toán: ${order.amount.toLocaleString("vi-VN")}đ
