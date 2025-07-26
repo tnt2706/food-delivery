@@ -2,19 +2,16 @@ import reservationModel from '../models/reservationModel.js';
 import userModel from '../models/userModel.js';
 import sendMail from '../utils/email.js';
 
-// Hằng số trạng thái đặt bàn
 const RESERVATION_STATUS = {
-  PENDING: 'pending', // Chờ xác nhận
-  APPROVED: 'approved', // Đã xác nhận
-  CANCELED: 'canceled' // Đã hủy
+  PENDING: 'pending',
+  APPROVED: 'approved',
+  CANCELED: 'canceled' 
 };
 
-// Vai trò người dùng
 const USER_ROLES = {
   ADMIN: 'admin'
 };
 
-// Mẫu email bằng tiếng Việt
 const EMAIL_TEMPLATES = {
   reservation_success: (date, branch, guests) => ({
     subject: '[Kokoria] ✅ Đã nhận yêu cầu đặt bàn',

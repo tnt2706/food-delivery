@@ -13,7 +13,7 @@ const Orders = ({ url }) => {
   const { token, admin } = useContext(StoreContext);
   const [orders, setOrders] = useState([]);
 
-  const layDanhSachDonHang = async () => {
+  const getOrder = async () => {
     const response = await axios.get(url + "/api/order/list", {
       headers: { token },
     });
@@ -22,7 +22,7 @@ const Orders = ({ url }) => {
     }
   };
 
-  const capNhatTrangThai = async (event, orderId) => {
+  const updateOderStatus = async (event, orderId) => {
     const response = await axios.post(
       url + "/api/order/status",
       {
@@ -33,7 +33,7 @@ const Orders = ({ url }) => {
     );
     if (response.data.success) {
       toast.success(response.data.message);
-      await layDanhSachDonHang();
+      await getOrder();
     } else {
       toast.error(response.data.message);
     }
@@ -63,7 +63,7 @@ const Orders = ({ url }) => {
       toast.error("Vui lòng đăng nhập trước");
       navigate("/");
     }
-    layDanhSachDonHang();
+    getOrder();
   }, []);
 
   return (
@@ -100,7 +100,7 @@ const Orders = ({ url }) => {
             <p>Số món: {order.items.length}</p>
             <p>Tổng tiền: {order.amount.toLocaleString()} đ</p>
             <select
-              onChange={(event) => capNhatTrangThai(event, order._id)}
+              onChange={(event) => updateOderStatus(event, order._id)}
               value={order.status}
             >
               {statusOptions.map((option) => (
