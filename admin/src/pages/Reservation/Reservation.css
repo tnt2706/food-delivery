@@ -1,0 +1,81 @@
+.reservation-table-container {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 48px;
+  background-color: #f9fafb;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.reservation-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 32px;
+}
+
+.reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.reservation-table thead {
+  background-color: #f1f5f9;
+  text-align: left;
+}
+
+.reservation-table th,
+.reservation-table td {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: #334155;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.reservation-table th {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.reservation-table tr:hover {
+  background-color: #f9fbfc;
+}
+
+.status-dropdown {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid #cbd5e1;
+  outline: none;
+  cursor: pointer;
+  background-color: #f8fafc;
+}
+
+.status-dropdown:focus {
+  border-color: #3b82f6;
+}
+
+.status-dropdown.approved {
+  background-color: #e6ffed;
+  color: #15803d;
+}
+
+.status-dropdown.pending {
+  background-color: #fef9c3;
+  color: #ca8a04;
+}
+
+.status-dropdown.canceled {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.cancel-reason {
+  color: #dc2626;
+  font-style: italic;
+}

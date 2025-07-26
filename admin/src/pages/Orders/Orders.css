@@ -1,143 +1,159 @@
+/* Order Section Container */
 .order {
   width: 100%;
-  background-color: hsl(0, 0%, 98%);
+  background-color: #f9fafb;
+  color: #1f2937;
+  letter-spacing: 0.2px;  /* Slightly increased spacing for better readability */
+  line-height: 1.5;       /* Improve vertical spacing */
 }
 
+/* Order Title */
 .order-title {
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: hsl(216, 100%, 30%);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #1e3a8a;
 }
 
+/* Order List Layout */
 .order-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 40px;
+  gap: 24px;
+  padding: 48px;
 }
 
+.order-list p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+/* Order Item Card */
 .order-item {
   display: grid;
   grid-template-columns: 60px 2.5fr 1fr 1fr 1fr;
   align-items: start;
   gap: 20px;
-  border: 1px solid hsl(0, 0%, 90%);
-  background-color: hsl(0, 0%, 100%);
-  border-radius: 12px;
+  background: white;
+  border-radius: 14px;
   padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  transition: all 0.3s ease;
-}
-
-.order-list p {
-    font-size: 14px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+  border: 1px solid #e5e7eb;
+  transition: 0.3s ease;
 }
 
 .order-item:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
   transform: translateY(-2px);
 }
 
+/* Order Item Image */
 .order-item img {
   width: 48px;
   height: 48px;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
-.order-item-food, .order-item-name {
+/* Name & Food Info */
+.order-item-food{
   font-weight: 600;
-  color: hsl(0, 0%, 20%);
+  color: #1e3a8a !important; 
+  font-size: 16px;
+  margin: 4px 0;
 }
 
 .order-item-name {
-  margin: 15px 0 5px;
+  font-weight: 600;
+  color: #111827;
+  font-size: 14px;
+  letter-spacing: 0.2px;
 }
 
-.order-item-address p {
-  margin: 0;
-  font-size: 12px;
-  color: hsl(0, 0%, 40%);
+.order-item-name {
+  margin: 10px 0 5px;
 }
 
+/* Address & Phone */
+.order-item-address p,
 .order-item-phone {
-  font-size: 12px;
-  color: hsl(0, 0%, 40%);
-  margin-top: 5px;
+  font-size: 13px;
+  color: #6b7280;
+  letter-spacing: 0.2px;
 }
 
+/* Price Styling - bold and red */
+.order-item-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #dc2626;         /* Strong red for price */
+  letter-spacing: 0.4px;  /* Emphasize */
+  margin-top: 4px;
+  display: inline-block;
+}
+
+/* Dropdown Select (Order Status) */
 .order-item select {
-  background-color: hsl(14, 100%, 97%);
-  border: 1px solid tomato;
-  border-radius: 8px;
-  padding: 10px;
-  font-size: 12px;
+  background-color: #f9fafb;
+  border: none;
+  border-bottom: 1px solid #93c5fd;
+  border-radius: 0;
+  padding: 6px 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1d4ed8;
   cursor: pointer;
-  transition: 0.3s ease;
-  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg fill='hsl(222,100%25,40%25)' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 14px 14px;
+  transition: all 0.2s ease;
 }
 
+/* Hover and focus for select */
 .order-item select:hover {
-  background-color: hsl(14, 100%, 93%);
-  box-shadow: 0 0 0 3px rgba(255, 99, 71, 0.2);
+  background-color: #eef2ff;
+  border-color: #60a5fa;
+}
+.order-item select:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 1px 0 0 rgba(96,165,250,0.5);
 }
 
+/* Icon Container */
+.order-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive for Tablets and Small Screens */
 @media (max-width: 1000px) {
   .order-item {
     font-size: 12px;
-    grid-template-columns: 50px 1.5fr 1fr;
+    grid-template-columns: 50px 2fr 1fr;
     gap: 15px;
-    padding: 15px;
+    padding: 16px;
   }
 
-  .order-item select {
-    font-size: 12px;
-    padding: 8px;
+  .order-title {
+    font-size: 16px;
+    text-align: center;
   }
 
   .order-item img {
     width: 40px;
     height: 40px;
   }
-
-  .order-title {
-    font-size: 12px;
-    text-align: center;
-  }
 }
 
-.order-item select {
-  background-color: hsl(216, 100%, 98%); /* very light blue */
-  border: 1px solid hsl(216, 100%, 60%);
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 12px;
-  font-weight: 500;
-  color: hsl(216, 100%, 25%);
-  cursor: pointer;
-  transition: 0.3s ease;
-  width: 100%;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg fill='hsl(216,100%25,40%25)' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px 16px;
-}
-
-.order-item select:hover {
-  background-color: hsl(216, 100%, 95%);
-  border-color: hsl(216, 100%, 50%);
-  box-shadow: 0 0 0 3px rgba(30, 80, 250, 0.1);
-}
-
-.order-item select:focus {
-  outline: none;
-  border-color: hsl(216, 100%, 50%);
-  box-shadow: 0 0 0 3px rgba(30, 80, 250, 0.2);
-}
-
-.order-item-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.order-item-date {
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  margin-top: 4px;
 }

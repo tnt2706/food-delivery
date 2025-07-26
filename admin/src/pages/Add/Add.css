@@ -1,7 +1,7 @@
 .add {
   width: 100%;
   background-color: #f9fafb; /* nền gần trắng */
-  padding: 40px;
+  padding: 48px;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
   color: #1a1a1a; /* màu chữ đậm vừa */
@@ -15,10 +15,15 @@
 }
 
 .add-img-upload img {
-  width: 120px;
+  width: 140px;
   border-radius: 12px;
   object-fit: cover;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.add-food p {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .add-product-name,

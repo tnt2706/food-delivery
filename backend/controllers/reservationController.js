@@ -199,7 +199,10 @@ const listReservations = async (req, res) => {
         break;
     }
 
-    const reservations = await reservationModel.find(filter).sort({ date: 1 });
+    const reservations = await reservationModel
+      .find(filter)
+      .sort({ date: 1 })
+      .populate("processedBy", "name email"); 
 
     res.json({
       isSuccess: true,
@@ -239,7 +242,7 @@ const updateReservation = async (req, res) => {
     if (status === RESERVATION_STATUS.CANCELED) {
       updateData.reason = reason && reason.trim() !== "" 
         ? reason.trim() 
-        : "Nhà hàng không thể xử lý đơn đặt bàn này";
+        : "Đặt bàn bị từ chối";
     } else {
       updateData.reason = "";
     }
@@ -251,9 +254,9 @@ const updateReservation = async (req, res) => {
     }
 
     if (status === RESERVATION_STATUS.APPROVED) {
-      await sendReservationEmail(reservation.email, 'reservation_approved', reservation.date, reservation.branch, reservation.guests);
+      sendReservationEmail(reservation.email, 'reservation_approved', reservation.date, reservation.branch, reservation.guests);
     } else if (status === RESERVATION_STATUS.CANCELED) {
-      await sendReservationEmail(reservation.email, 'reservation_canceled', reservation.date, reservation.branch, reservation.guests, reservation.reason);
+      sendReservationEmail(reservation.email, 'reservation_canceled', reservation.date, reservation.branch, reservation.guests, reservation.reason);
     }
 
     res.json({ 

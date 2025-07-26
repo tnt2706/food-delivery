@@ -3,10 +3,9 @@ import "./Orders.css";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import { assets } from "../../assets/assets"; // bỏ vì thay icon mới
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
-import { PackageCheck, PackageSearch, Truck, CheckCheck } from "lucide-react"; // icon thay thế đẹp hơn
+import { PackageCheck, PackageSearch, Truck, CheckCheck } from "lucide-react";
 
 const Orders = ({ url }) => {
   const navigate = useNavigate();
@@ -34,7 +33,7 @@ const Orders = ({ url }) => {
     if (response.data.success) {
       toast.success(response.data.message);
       await getOrder();
-      navigate('/orders')
+      navigate("/orders");
     } else {
       toast.error(response.data.message);
     }
@@ -92,17 +91,30 @@ const Orders = ({ url }) => {
                 {order.address.firstName + " " + order.address.lastName}
               </p>
               <div className="order-item-address">
-                <p>{order.address.street + ","}</p>
                 <p>
-                  {order.address.city +
+                  {order.address.street +
+                    ", " +
+                    order.address.city +
                     ", " +
                     order.address.state}
                 </p>
               </div>
               <p className="order-item-phone">{order.address.phone}</p>
+              <p className="order-item-date">
+                Ngày đặt:{" "}
+                {new Date(order.date).toLocaleDateString("vi-VN", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </p>
             </div>
             <p>Số món: {order.items.length}</p>
-            <p>Tổng tiền: {order.amount.toLocaleString()} đ</p>
+            <p className="order-item-price">
+              Tổng tiền: {order.amount.toLocaleString()} đ
+            </p>
             <select
               onChange={(event) => updateOderStatus(event, order._id)}
               value={order.status}

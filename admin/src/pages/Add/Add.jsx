@@ -62,7 +62,7 @@ const Add = ({ url }) => {
   }, [admin, token]);
 
   return (
-    <div className="add">
+    <div className="add add-food">
       <form onSubmit={onSubmitHandler} className="flex-col">
         <div className="add-img-upload flex-col">
           <p>Tải ảnh món ăn</p>
